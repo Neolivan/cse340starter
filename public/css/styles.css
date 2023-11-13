@@ -4,3 +4,176 @@
 *:after {
   box-sizing: border-box;
 }
+
+body {
+  margin: 0;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+#top-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 30px 5px;
+}
+
+.siteName a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bolder;
+  font-size: 2rem;
+}
+
+#tools a {
+  text-decoration: none;
+  color: #000;
+}
+
+nav {
+  background-color: #000;
+  color: #ffff;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  justify-content: space-around;
+  align-items: center;
+  padding-left: 0;
+}
+
+.title {
+  font-family: "Roboto Slab", serif;
+  font-weight: bold;
+}
+.no-margins {
+  margin: 0;
+}
+
+#hero {
+  width: 100%;
+}
+
+#hero-info {
+  background-color: rgba(255, 255, 255, 0.76);
+  color:#01B0D3 ;
+  font-weight: bolder;
+  z-index: 2;
+  position: absolute;
+  margin-left: 2%;
+}
+
+#car-fetures {
+  display: flex;
+  flex-direction: column;
+}
+
+.baseImg{
+  width: 95%;
+  
+}
+#reviews ul{
+  padding-left: 25px;
+}
+
+#cards{
+  display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.cardUP{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 45%;
+  margin-bottom: 5%;
+}
+
+.cardUP div {
+  background-color: #01B0D3;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+.cardUP div img{
+  padding-bottom: 10px;
+  height: 6rem;
+  padding-top: 10px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+
+
+}
+
+@media only screen and (min-width: 1024px) {
+  body{
+    padding: 20px 0;
+    background-image: url("/images/site/checkerboard.jpg");
+    background-attachment: fixed;
+    background-size: contain;
+  }
+  #wrapper{
+    width: 60%;
+    padding: 10px;
+    border: 3px solid #01B0D3;
+    border-radius: 10px;
+    margin: auto;
+    background-color: #ffff;
+  }
+
+  #title{
+    font-size: 3rem !important;
+  }
+  #hero-info{
+    font-size: 3rem;
+    margin-top: 2%;
+  }
+  #hero-info img{
+    margin-top: 15px;
+    width: 92%;
+  }
+  .baseImg {
+    width: 85%;
+    margin-left: 15%;
+}
+#UPReview_container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 5rem;
+}
+
+#reviews{
+  width: 50%;
+  order: 2;
+}
+#reviews li{
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+#upgrades{
+  width: 50%;
+  order: 1;
+}
+
+.title{
+  font-size: 2rem;
+}
+
+.cardUP div img {
+  height: 8rem;
+}
+
+
+}
