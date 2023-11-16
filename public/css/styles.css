@@ -45,6 +45,11 @@ nav ul {
   padding-left: 0;
 }
 
+nav ul li a{
+  text-decoration: none;
+  color: #ffff;
+}
+
 .title {
   font-family: "Roboto Slab", serif;
   font-weight: bold;

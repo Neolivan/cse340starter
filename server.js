@@ -5,6 +5,7 @@
 /* ***********************
  * Require Statements
  *************************/
+const baseController = require("./controllers/baseController")
 const express = require("express")
 const env = require("dotenv").config()
 const app = express()
@@ -23,10 +24,10 @@ app.set("layout", "./layouts/layout") // not at views root
  *************************/
 app.use(require("./routes/static"))
 //Index Route
-app.use("/",function(req,res){
-  res.render("index", {title: "Home"})
-})
-
+// app.use("/",function(req,res){
+//   res.render("index", {title: "Home"})
+// })
+app.get("/", baseController.buildHome)
 
 
 
