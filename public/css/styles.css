@@ -115,6 +115,55 @@ nav ul li a{
   padding-top: 10px;
 }
 
+#inv-display{
+  list-style-type: unset;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 5%;
+    gap: 60px;
+    padding: 0;
+}
+#inv-display li{
+  list-style: none;
+  min-height: 300px;
+  max-width: 226px;
+  border: 3px solid black;
+  border-radius: 20px;
+  padding: 10px;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: space-between;
+}
+#inv-display li a{
+  text-decoration: none;
+  color: #000;
+}
+#type-title{
+
+  text-align: center;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+#inv-display li div span {
+  font-size: 2rem;
+  color: rgb(0 151 0);
+}
+
+.container-details{
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+}
+
+.flex-inline{
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 15px;
+}
+
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
 
 

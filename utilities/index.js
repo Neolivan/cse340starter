@@ -57,4 +57,46 @@ Util.buildClassificationGrid = async function(data){
     return grid
   }
 
+  /* **************************************
+* Build the classification view HTML
+* ************************************ */
+Util.buildDetailGrid = async function(data){
+  let grid;
+  if(data.length > 0){
+    grid = `
+    <h2>${data[0].inv_year} ${data[0].inv_make} ${data[0].inv_model}</h2>
+    <div class="container-details">
+      <img alt="veicle-img" src="${data[0].inv_image}"/>
+      <div>
+        <div class="flex-inline">
+          <h3>Description: </h3>
+          <p>${data[0].inv_description}</p>
+        </div>
+        <div class="flex-inline">
+          <h3>Inv. Color:</h3>
+          <p>${data[0].inv_color}</p>
+        </div>
+        <div class="flex-inline">  
+          <h3>Miles:</h3>
+          <p>${data[0].inv_miles}</p>
+        </div>
+        <div class="flex-inline">  
+          <h3>Price:</h3>
+          <p>R$ ${data[0].inv_price}</p>
+        </div>
+      </div>
+    </div>
+    `
+  }else { 
+      grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+    }
+    return grid
+}
+  /* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
 module.exports = Util
