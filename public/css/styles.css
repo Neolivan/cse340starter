@@ -153,7 +153,7 @@ nav ul li a{
 
 .container-details{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 25px;
 }
 
@@ -165,7 +165,7 @@ nav ul li a{
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
-
+ 
 
 }
 
@@ -229,5 +229,8 @@ nav ul li a{
   height: 8rem;
 }
 
+.container-details{
+  flex-direction: row;
+}
 
 }
