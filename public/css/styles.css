@@ -164,6 +164,22 @@ nav ul li a{
   gap: 15px;
 }
 
+.error-button {    
+  text-decoration: none;
+  color: black;
+  background-color: #4646d7;
+  padding: 10px 20px;
+  font-weight: bold;
+  color: #FFFF;
+  border-radius: 25px;
+}
+
+#error-img{
+  width: 100%;
+  margin-top: 5%;
+  border-radius: 25px;
+}
+
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
  
 
