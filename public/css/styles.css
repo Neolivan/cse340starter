@@ -45,7 +45,7 @@ nav ul {
   padding-left: 0;
 }
 
-nav ul li a{
+nav ul li a {
   text-decoration: none;
   color: #ffff;
 }
@@ -64,7 +64,7 @@ nav ul li a{
 
 #hero-info {
   background-color: rgba(255, 255, 255, 0.76);
-  color:#01B0D3 ;
+  color: #01b0d3;
   font-weight: bolder;
   z-index: 2;
   position: absolute;
@@ -76,23 +76,22 @@ nav ul li a{
   flex-direction: column;
 }
 
-.baseImg{
+.baseImg {
   width: 95%;
-  
 }
-#reviews ul{
+#reviews ul {
   padding-left: 25px;
 }
 
-#cards{
+#cards {
   display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
 }
 
-.cardUP{
+.cardUP {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -102,29 +101,29 @@ nav ul li a{
 }
 
 .cardUP div {
-  background-color: #01B0D3;
+  background-color: #01b0d3;
   border: 1px solid black;
   display: flex;
   flex-direction: row;
   justify-content: center;
   width: 100%;
 }
-.cardUP div img{
+.cardUP div img {
   padding-bottom: 10px;
   height: 6rem;
   padding-top: 10px;
 }
 
-#inv-display{
+#inv-display {
   list-style-type: unset;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-bottom: 5%;
-    gap: 60px;
-    padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 5%;
+  gap: 60px;
+  padding: 0;
 }
-#inv-display li{
+#inv-display li {
   list-style: none;
   min-height: 300px;
   max-width: 226px;
@@ -136,12 +135,11 @@ nav ul li a{
   flex-direction: column;
   justify-content: space-between;
 }
-#inv-display li a{
+#inv-display li a {
   text-decoration: none;
   color: #000;
 }
-#type-title{
-
+#type-title {
   text-align: center;
   margin-top: 5%;
   margin-bottom: 5%;
@@ -151,102 +149,165 @@ nav ul li a{
   color: rgb(0 151 0);
 }
 
-.container-details{
+.container-details {
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
 
-.flex-inline{
+.flex-inline {
   display: flex;
   flex-direction: row;
   align-items: baseline;
   gap: 15px;
 }
 
-.error-button {    
+.error-button {
   text-decoration: none;
   color: black;
   background-color: #4646d7;
   padding: 10px 20px;
   font-weight: bold;
-  color: #FFFF;
+  color: #ffff;
   border-radius: 25px;
 }
 
-#error-img{
+#error-img {
   width: 100%;
   margin-top: 5%;
   border-radius: 25px;
 }
 
-@media only screen and (min-width: 768px) and (max-width: 1023px) {
- 
+.form-styles {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  background-color: black;
+  color: white;
+  padding: 25px;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  align-items: center;
+}
 
+.form-styles label {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-size: 1.5rem;
+}
+.form-styles label h5 {
+  margin-bottom: 0;
+}
+.form-styles label input {
+  height: 50px;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  padding-left: 5px;
+  border: none
+}
+.form-styles button{
+  padding: 5px 25px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: white;
+  border: none;
+  border-radius: 25px;
+}
+.form-styles button:hover{
+  background-color: rgb(51, 50, 50) ;
+  color: #ffff;
+}
+.form-styles span a{
+  color: #ffff;
+}
+
+.notice{
+  font-size: 1.5rem;
+  font-weight: bold;
+  list-style: none;
+  color: red;
+}
+
+input:required:invalid, input:focus:invalid {
+  /* insert your own styles for invalid form input */
+  border: 2px solid red;
+ }
+
+
+ input:required:valid {
+  /* insert your own styles for valid form input */
+  border: none;
+ }
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
 }
 
 @media only screen and (min-width: 1024px) {
-  body{
+  body {
     padding: 20px 0;
     background-image: url("/images/site/checkerboard.jpg");
     background-attachment: fixed;
     background-size: contain;
   }
-  #wrapper{
+  #wrapper {
     width: 60%;
     padding: 10px;
-    border: 3px solid #01B0D3;
+    border: 3px solid #01b0d3;
     border-radius: 10px;
     margin: auto;
     background-color: #ffff;
   }
 
-  #title{
+  #title {
     font-size: 3rem !important;
   }
-  #hero-info{
+  #hero-info {
     font-size: 3rem;
     margin-top: 2%;
   }
-  #hero-info img{
+  #hero-info img {
     margin-top: 15px;
     width: 92%;
   }
   .baseImg {
     width: 85%;
     margin-left: 15%;
-}
-#UPReview_container{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 5rem;
-}
+  }
+  #UPReview_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 5rem;
+  }
 
-#reviews{
-  width: 50%;
-  order: 2;
-}
-#reviews li{
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-#upgrades{
-  width: 50%;
-  order: 1;
-}
+  #reviews {
+    width: 50%;
+    order: 2;
+  }
+  #reviews li {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  #upgrades {
+    width: 50%;
+    order: 1;
+  }
 
-.title{
-  font-size: 2rem;
-}
+  .title {
+    font-size: 2rem;
+  }
 
-.cardUP div img {
-  height: 8rem;
-}
+  .cardUP div img {
+    height: 8rem;
+  }
 
-.container-details{
-  flex-direction: row;
-}
-
+  .container-details {
+    flex-direction: row;
+  }
+  .form-styles{
+    width: 50%;
+  }
 }
