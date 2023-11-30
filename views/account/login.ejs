@@ -3,20 +3,26 @@
     <% } else {
       res.redirect('/')
     } %>
-    
     <%- messages() %>
-    <form action="/" id="login-form" class="form-styles">
+    <% if (errors) { %>
+        <ul class="notice">
+       <% errors.array().forEach(error => { %>
+         <li><%= error.msg %></li>
+      <%  }) %>
+       </ul>
+      <% } %>
+    <form action="/account/login" method="post" id="login-form" class="form-styles">
         <label for="email">
             <h5>
                 Email:
             </h5>
-            <input type="email" required id="email" name="account_email ">
+            <input type="email" required id="email" name="account_email" placeholder="Enter your email" value="<%= locals.account_email %>">
         </label>
         <label for="pass">
             <h5>
                 Password:
             </h5>
-            <input type="password" required id="pass" name="account_password  ">
+            <input type="password" required id="pass" name="account_password" placeholder="Enter your password">
         </label>
         <button type="submit">Login</button>
         <span>No Account? <a href="/account/register">Sing-up</a></span>

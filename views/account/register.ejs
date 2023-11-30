@@ -16,19 +16,19 @@
                 <h5>
                     First name:
                 </h5>
-                <input type="text" required id="fname" name="account_firstname" placeholder="Enter your first name">
+                <input type="text" name="account_firstname" id="accountFirstname" required placeholder="Enter your first name" value="<%= locals.account_firstname %>">
             </label>
             <label for="lname">
                 <h5>
                     Last name:
                 </h5>
-                <input type="text" required id="lname" name="account_lastname" placeholder="Enter your last name">
+                <input type="text" required id="lname" name="account_lastname" placeholder="Enter your last name" value="<%= locals.account_lastname %>">
             </label>
             <label for="email">
                 <h5>
                     Email address:
                 </h5>
-                <input type="email" required id="email" name="account_email"  placeholder="Enter a valid email address">
+                <input type="email" required id="email" name="account_email"  placeholder="Enter a valid email address" value="<%= locals.account_email %>">
             </label>
             <label for="pass">
                 <h5>
