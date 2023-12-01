@@ -241,6 +241,32 @@ input:required:invalid, input:focus:invalid {
   /* insert your own styles for valid form input */
   border: none;
  }
+
+ #add-buttons-container{
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  justify-content: center;
+  align-items: center;
+ }
+
+ .styled-button {
+  padding: 5px 25px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: black;
+  border: none;
+  border-radius: 25px;
+  color: white;
+  text-decoration: none;
+ }
+ .styled-button:hover{
+  background-color: rgb(51, 50, 50) ;
+  color: #ffff;
+}
+
+
+
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
 }
 

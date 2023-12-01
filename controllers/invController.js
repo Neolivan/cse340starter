@@ -28,10 +28,67 @@ invCont.buildByCarId = async function (req, res ,next) {
   const grid = await utilities.buildDetailGrid(data)
   let nav = await utilities.getNav()
   res.render("./inventory/detail", {
-    title: " vehicles",
+    title: "Vehicles",
     nav,
     grid,
   })
+}
+/* ***************************
+ *  Build Management view
+ * ************************** */
+invCont.buildManagementView = async function (req, res ,next) {
+
+  let nav = await utilities.getNav()
+  res.render("./inventory/management", {
+    title: "Management",
+    nav,
+  })
+}
+/* ***************************
+ *  Build add-classification view
+ * ************************** */
+invCont.buildAddClassView = async function (req, res ,next) {
+
+  let nav = await utilities.getNav()
+  res.render("./inventory/add-classification", {
+    title: "ADD Classification",
+    nav,
+    errors : null
+  })
+}
+
+/* ***************************
+ *  Proccess to add-classification 
+ * ************************** */
+invCont.registerClass = async function (req, res) {
+  let nav = await utilities.getNav();
+  const {
+    classification_name
+  } = req.body;
+  
+
+  const regResult = await invModel.registerClass(
+    classification_name
+  );
+
+  if (regResult) {
+    req.flash(
+      "notice",
+      `Congratulations, you\'ve registered a new class ${classification_name}!`
+    );
+    res.status(201).render("inventory/management", {
+      title: "Management",
+      nav,
+      errors: null
+    });
+  } else {
+    req.flash("notice", "Sorry, the registration of new class has failed.");
+    res.status(501).render("inventory/add-classification", {
+      title: "ADD Classification",
+      nav,
+      errors: null
+    });
+  }
 }
 
 

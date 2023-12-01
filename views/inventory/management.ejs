@@ -1,0 +1,10 @@
+<% if (title) { %>
+    <h1 id="type-title"><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+    <%- messages() %>
+    <div id="add-buttons-container">
+        <a href="/inv/addClassification" class="styled-button">ADD NEW CLASSIFICATION</a>
+        <a href="#" class="styled-button">ADD NEW INVENTORY</a>
+    </div>
