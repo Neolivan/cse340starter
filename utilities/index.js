@@ -92,6 +92,24 @@ Util.buildDetailGrid = async function(data){
     }
     return grid
 }
+
+/* ************************
+ * Constructs the add inventory item form
+ ************************** */
+Util.getAddInvForm = async function (req, res, next) {
+  let data = await invModel.getClassifications();
+  let select = "<select id='classification_id' name='classification_id'>"
+
+  data.rows.forEach((row) =>{
+    select += `<option value=${row.classification_id}>
+    ${row.classification_name}
+</option>`
+  })
+
+  select +=" </select>"
+    return select
+}
+
   /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 

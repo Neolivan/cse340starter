@@ -36,6 +36,20 @@ router.post(
   utilities.handleErrors(invController.registerClass)
 );
 
+//Route to go to add-inventory item page
+router.get(
+  "/addInventory",
+  utilities.handleErrors(invController.buildAddInvView)
+);
+
+//Proccess the add-Inventory attempt
+router.post(
+  "/addInventory",
+  managementValidate.addIvnRules(),
+  managementValidate.checkinvData,
+  utilities.handleErrors(invController.registerInv)
+);
+
 
 
 module.exports = router;

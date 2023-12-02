@@ -56,6 +56,75 @@ invCont.buildAddClassView = async function (req, res ,next) {
     errors : null
   })
 }
+/* ***************************
+ *  Build add-inventory item view
+ * ************************** */
+invCont.buildAddInvView = async function (req, res ,next) {
+
+  let grid = await utilities.getAddInvForm()
+  let nav = await utilities.getNav()
+  res.render("./inventory/add-inventory", {
+    title: "ADD Inventory Item",
+    nav,
+    errors : null,
+    grid
+  })
+}
+
+/* ***************************
+ *  Proccess to add-inventory 
+ * ************************** */
+invCont.registerInv = async function (req, res) {
+  let nav = await utilities.getNav();
+  let grid = await utilities.getAddInvForm()
+  const basedirectory = "/images/vehicles/"
+  const { inv_make,
+    inv_model,
+    inv_year,
+    inv_miles,
+    inv_color,
+    inv_description,
+    inv_price,
+    inv_image,
+    inv_thumbnail,
+    classification_id } = req.body;
+  const image = basedirectory + inv_image 
+  const thumbnail = basedirectory + inv_thumbnail 
+  
+
+  const regResult = await invModel.registerInv(
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_miles,
+    inv_color,
+    inv_description,
+    inv_price,
+    image,
+    thumbnail,
+    classification_id
+  );
+
+  if (regResult) {
+    req.flash(
+      "notice",
+      `Congratulations, you\'ve registered a new item to inventory  ${inv_make} ${inv_model} - ${inv_year}!`
+    );
+    res.status(201).render("inventory/management", {
+      title: "Management",
+      nav,
+      errors: null
+    });
+  } else {
+    req.flash("notice", "Sorry, the registration of new class has failed.");
+    res.status(501).render("inventory/add-inventory", {
+      title: "ADD Classification",
+      nav,
+      errors: null,
+      grid
+    });
+  }
+}
 
 /* ***************************
  *  Proccess to add-classification 
