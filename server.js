@@ -18,6 +18,7 @@ const accountRoute = require("./routes/accountRoute");
 const utilities = require("./utilities");
 const customErrorController = require("./controllers/customErrorController");
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 /* ***********************
  * View Engine and Templates
@@ -50,7 +51,8 @@ app.use(session({
   saveUninitialized: true,
   name: 'sessionId',
 }))
-
+app.use(cookieParser())
+app.use(utilities.checkJWTToken)
 
 /* ***********************
  * Routes
