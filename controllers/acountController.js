@@ -9,10 +9,12 @@ require("dotenv").config()
  * *************************************** */
 async function buildLogin(req, res, next) {
   let nav = await utilities.getNav();
+  const account = await utilities.getHeader(req,res)
   res.render("account/login", {
     title: "Login",
     nav,
     errors: null,
+    account
   });
 }
 
@@ -21,10 +23,12 @@ async function buildLogin(req, res, next) {
  * *************************************** */
 async function buildRegister(req, res, next) {
   let nav = await utilities.getNav();
+  const account = await utilities.getHeader(req,res)
   res.render("account/register", {
     title: "Register",
     nav,
     errors: null,
+    account
   });
 }
 /* ****************************************
@@ -32,6 +36,7 @@ async function buildRegister(req, res, next) {
  * *************************************** */
 async function registerAccount(req, res) {
   let nav = await utilities.getNav();
+  const account = await utilities.getHeader(req,res)
   const {
     account_email,
     account_firstname,
@@ -53,6 +58,7 @@ async function registerAccount(req, res) {
       title: "Registration",
       nav,
       errors: null,
+      account
     });
   }
 
@@ -88,6 +94,7 @@ async function registerAccount(req, res) {
  * ************************************ */
 async function accountLogin(req, res) {
   let nav = await utilities.getNav()
+  const account = await utilities.getHeader(req,res)
   const { account_email, account_password } = req.body
   const accountData = await accountModel.getAccountByEmail(account_email)
   if (!accountData) {
@@ -97,6 +104,7 @@ async function accountLogin(req, res) {
     nav,
     errors: null,
     account_email,
+    account
    })
   return
   }
@@ -105,6 +113,7 @@ async function accountLogin(req, res) {
    delete accountData.account_password
    const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
    res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
+   res.cookie("account_name", accountData.account_firstname, { httpOnly: true, maxAge: 3600 * 1000 })
    return res.redirect("/account/")
    }
   } catch (error) {
@@ -117,10 +126,12 @@ async function accountLogin(req, res) {
  * *************************************** */
 async function buildAccountManagementView(req, res, next) {
   let nav = await utilities.getNav();
+  const account = await utilities.getHeader(req,res)
   res.render("account/management", {
-    title: "Login",
+    title: "Account Management",
     nav,
     errors: null,
+    account
   });
 }
 

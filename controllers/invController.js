@@ -11,11 +11,13 @@ invCont.buildByClassificationId = async function (req, res, next) {
   const data = await invModel.getInventoryByClassificationId(classification_id)
   const grid = await utilities.buildClassificationGrid(data)
   let nav = await utilities.getNav()
+  const account = await utilities.getHeader(req,res)
   const className = data[0].classification_name
   res.render("./inventory/classification", {
     title: className + " vehicles",
     nav,
     grid,
+    account
   })
 }
 /* ***************************
@@ -27,10 +29,12 @@ invCont.buildByCarId = async function (req, res ,next) {
   console.log("DATA",data )
   const grid = await utilities.buildDetailGrid(data)
   let nav = await utilities.getNav()
+  const account = await utilities.getHeader(req,res)
   res.render("./inventory/detail", {
     title: "Vehicles",
     nav,
     grid,
+    account
   })
 }
 /* ***************************
@@ -39,10 +43,12 @@ invCont.buildByCarId = async function (req, res ,next) {
 invCont.buildManagementView = async function (req, res ,next) {
   const classificationSelect = await utilities.getAddInvForm()
   let nav = await utilities.getNav()
+  const account = await utilities.getHeader(req,res)
   res.render("./inventory/management", {
     title: "Management",
     nav,
-    options : classificationSelect
+    options : classificationSelect,
+    account
   })
 }
 /* ***************************
@@ -51,10 +57,13 @@ invCont.buildManagementView = async function (req, res ,next) {
 invCont.buildAddClassView = async function (req, res ,next) {
 
   let nav = await utilities.getNav()
+  const account = await utilities.getHeader(req,res)
+
   res.render("./inventory/add-classification", {
     title: "ADD Classification",
     nav,
-    errors : null
+    errors : null,
+    account
   })
 }
 /* ***************************
@@ -64,11 +73,13 @@ invCont.buildAddInvView = async function (req, res ,next) {
 
   let grid = await utilities.getAddInvForm()
   let nav = await utilities.getNav()
+  const account = await utilities.getHeader(req,res)
   res.render("./inventory/add-inventory", {
     title: "ADD Inventory Item",
     nav,
     errors : null,
-    grid
+    grid,
+    account
   })
 }
 
@@ -77,6 +88,7 @@ invCont.buildAddInvView = async function (req, res ,next) {
  * ************************** */
 invCont.registerInv = async function (req, res) {
   let nav = await utilities.getNav();
+  const account = await utilities.getHeader(req,res)
   let grid = await utilities.getAddInvForm()
   const basedirectory = "/images/vehicles/"
   const { inv_make,
@@ -114,6 +126,7 @@ invCont.registerInv = async function (req, res) {
     res.status(201).render("inventory/management", {
       title: "Management",
       nav,
+      account,
       errors: null
     });
   } else {
@@ -121,6 +134,7 @@ invCont.registerInv = async function (req, res) {
     res.status(501).render("inventory/add-inventory", {
       title: "ADD Classification",
       nav,
+      account,
       errors: null,
       grid
     });
@@ -132,6 +146,7 @@ invCont.registerInv = async function (req, res) {
  * ************************** */
 invCont.registerClass = async function (req, res) {
   let nav = await utilities.getNav();
+  const account = await utilities.getHeader(req,res)
   const {
     classification_name
   } = req.body;
@@ -149,6 +164,7 @@ invCont.registerClass = async function (req, res) {
     res.status(201).render("inventory/management", {
       title: "Management",
       nav,
+      account,
       errors: null
     });
   } else {
@@ -156,6 +172,7 @@ invCont.registerClass = async function (req, res) {
     res.status(501).render("inventory/add-classification", {
       title: "ADD Classification",
       nav,
+      account,
       errors: null
     });
   }
@@ -180,6 +197,7 @@ invCont.getInventoryJSON = async (req, res, next) => {
 invCont.editInventoryView = async function (req, res, next) {
   const inv_id = parseInt(req.params.inv_id)
   let nav = await utilities.getNav()
+  const account = await utilities.getHeader(req,res)
   const itemData = await invModel.getInventoryByCarId(inv_id)
   const data = itemData[0]
   data.inv_thumbnail = `${data.inv_thumbnail}`.replace("/images/vehicles/", "")
@@ -191,6 +209,7 @@ invCont.editInventoryView = async function (req, res, next) {
   res.render("./inventory/edit-inventory", {
     title: "Edit " + itemName,
     nav,
+    account,
     grid: classificationSelect,
     errors: null,
     inv_id: data.inv_id,
@@ -212,6 +231,7 @@ invCont.editInventoryView = async function (req, res, next) {
 invCont.deleteInventoryView = async function (req, res, next) {
   const inv_id = parseInt(req.params.inv_id)
   let nav = await utilities.getNav()
+  const account = await utilities.getHeader(req,res)
   const itemData = await invModel.getInventoryByCarId(inv_id)
   const data = itemData[0]
   const itemName = `${data.inv_make} ${data.inv_model}`
@@ -220,6 +240,7 @@ invCont.deleteInventoryView = async function (req, res, next) {
   res.render("./inventory/delete-confirm", {
     title: "Delete " + itemName,
     nav,
+    account,
     errors: null,
     inv_id: data.inv_id,
     inv_make: data.inv_make,
@@ -235,6 +256,8 @@ invCont.deleteInventoryView = async function (req, res, next) {
  * ************************** */
 invCont.updateInventory = async function (req, res, next) {
   let nav = await utilities.getNav()
+  const account = await utilities.getHeader(req,res)
+
   const {
     inv_id,
     inv_make,
@@ -276,6 +299,7 @@ invCont.updateInventory = async function (req, res, next) {
     res.status(501).render("inventory/edit-inventory", {
     title: "Edit " + itemName,
     nav,
+    account,
     grid: classificationSelect,
     errors: null,
     inv_id,
@@ -299,6 +323,8 @@ invCont.updateInventory = async function (req, res, next) {
  * ************************** */
 invCont.deleteInventory = async function (req, res, next) {
   let nav = await utilities.getNav()
+  const account = await utilities.getHeader(req,res)
+
   const {
     inv_id,
     inv_make,
@@ -320,6 +346,7 @@ invCont.deleteInventory = async function (req, res, next) {
     res.status(501).render("inventory/delete-confirm", {
     title: "Delete " + itemName,
     nav,
+    account,
     errors: null,
     inv_id,
     inv_make,

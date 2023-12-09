@@ -89,6 +89,7 @@ const host = process.env.HOST;
  *************************/
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav();
+  const account = await utilities.getHeader(req,res)
   console.error(`Error at: "${req.originalUrl}": ${err.message} - ${err.status}`);
   if (err.status == 404) {
     message = err.message;
@@ -96,6 +97,7 @@ app.use(async (err, req, res, next) => {
       title: err.status || "Server Error",
       message,
       nav,
+      account
     });
   } else if (err.status == 500) {
     message = "Something went wrong...";
@@ -103,6 +105,7 @@ app.use(async (err, req, res, next) => {
       title: "500 - Server Error",
       message,
       nav,
+      account
     });
   } else {
     message = "Oh no! There was a crash. Maybe try a different route?";
@@ -110,6 +113,7 @@ app.use(async (err, req, res, next) => {
       title: err.status || "Server Error",
       message,
       nav,
+      account
     });
   }
 });

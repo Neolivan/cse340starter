@@ -111,11 +111,13 @@ validate.checkClassData = async (req, res, next) => {
   errors = validationResult(req);
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav();
+    const account = await utilities.getHeader(req,res)
     res.render("inventory/add-classification", {
       errors,
       title: "ADD Classification",
       nav,
       classification_name,
+      account
     });
     return;
   }
@@ -138,11 +140,14 @@ validate.checkinvData = async (req, res, next) => {
   errors = validationResult(req);
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav();
+    const account = await utilities.getHeader(req,res)
+
     let grid = await utilities.getAddInvForm();
     res.render("inventory/add-inventory", {
       errors,
       title: "ADD Inventory",
       nav,
+      account,
       inv_make,
       inv_model,
       inv_year,
@@ -178,11 +183,14 @@ validate.checkinvEditData = async (req, res, next) => {
   const itemName = `${inv_make} ${inv_model}`
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav();
+    const account = await utilities.getHeader(req,res)
+
     let grid = await utilities.getAddInvForm();
     res.render("inventory/edit-inventory", {
       errors,
       title: "Edit " + itemName,
       nav,
+      account,
       inv_make,
       inv_model,
       inv_year,
@@ -215,6 +223,8 @@ validate.checkinvDeleteData = async (req, res, next) => {
   const itemName = `${inv_make} ${inv_model}`
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav();
+    const account = await utilities.getHeader(req,res)
+
     res.render("inventory/delete-confirm", {
       errors,
       title: "Delete " + itemName,
@@ -224,6 +234,7 @@ validate.checkinvDeleteData = async (req, res, next) => {
       inv_year,
       inv_price,
       inv_id,
+      account
     });
     return;
   }

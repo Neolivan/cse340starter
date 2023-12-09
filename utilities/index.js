@@ -25,6 +25,20 @@ Util.getNav = async function (req, res, next) {
   list += "</ul>"
   return list
 }
+/* ************************
+ * Constructs the header HTML basead if it logged in r not
+ ************************** */
+Util.getHeader = async function (req, res, next) {
+   let logHeader = ""
+   if(req.cookies.account_name){
+    const account  = req.cookies.account_name
+    logHeader = `<a title="Account Management" href="/account/">Welcome ${account}</a>`
+    logHeader += `<a title="Logout" href="/account/logout"> | Logout</a>`
+   }else{
+    logHeader =`<a title="Click to log in" href="/account/login">My Account</a>`
+   }
+   return logHeader
+}
 
 /* **************************************
 * Build the classification view HTML

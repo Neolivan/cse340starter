@@ -37,11 +37,13 @@ validate.checkLogData = async (req, res, next) => {
     errors = validationResult(req);
     if (!errors.isEmpty()) {
       let nav = await utilities.getNav();
+      const account = await utilities.getHeader(req,res)
       res.render("account/login", {
         errors,
         title: "Login",
         nav,
         account_email,
+        account
       });
       return;
     }
@@ -102,6 +104,8 @@ validate.checkRegData = async (req, res, next) => {
   errors = validationResult(req);
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav();
+    const account = await utilities.getHeader(req,res)
+
     res.render("account/register", {
       errors,
       title: "Registration",
@@ -109,6 +113,7 @@ validate.checkRegData = async (req, res, next) => {
       account_firstname,
       account_lastname,
       account_email,
+      account
     });
     return;
   }
