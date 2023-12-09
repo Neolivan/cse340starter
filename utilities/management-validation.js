@@ -73,6 +73,32 @@ validate.addIvnRules = () => {
   ];
 };
 
+validate.deleteIvnRules = () => {
+  return [
+    // valid inv_make is required and cannot already exist in the DB
+    body("inv_make")
+      .trim()
+      .isLength({ min: 2 })
+      .withMessage("A valid make is required."),
+    // valid inv_model is required and cannot already exist in the DB
+    body("inv_model")
+      .trim()
+      .isLength({ min: 2 })
+      .withMessage("A valid model is required."),
+    // valid inv_year is required and cannot already exist in the DB
+    body("inv_year")
+      .trim()
+      .isLength({ min: 4, max:4 })
+      .withMessage("A valid year is required."),
+    // valid inv_price is required and cannot already exist in the DB
+    body("inv_price")
+      .trim()
+      .isLength({ min: 3 })
+      .withMessage("A valid price is required."),
+  ];
+};
+
+
 
 
 
@@ -134,7 +160,7 @@ validate.checkinvData = async (req, res, next) => {
 };
 
 /* ******************************
- * Check data and return errors or continue to registration
+ * Check data and return errors or continue to edit
  * ***************************** */
 validate.checkinvEditData = async (req, res, next) => {
   const { inv_make,
@@ -174,6 +200,35 @@ validate.checkinvEditData = async (req, res, next) => {
   next();
 };
 
+
+/* ******************************
+ * Check data and return errors or continue to delete
+ * ***************************** */
+validate.checkinvDeleteData = async (req, res, next) => {
+  const { inv_make,
+    inv_model,
+    inv_year,
+    inv_price,
+    inv_id } = req.body;
+  let errors = [];
+  errors = validationResult(req);
+  const itemName = `${inv_make} ${inv_model}`
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    res.render("inventory/delete-confirm", {
+      errors,
+      title: "Delete " + itemName,
+      nav,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_price,
+      inv_id,
+    });
+    return;
+  }
+  next();
+};
 
 
 module.exports = validate;
