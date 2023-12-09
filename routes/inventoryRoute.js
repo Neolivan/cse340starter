@@ -19,12 +19,14 @@ router.get(
 //Route to go to management page
 router.get(
   "/management",
+  utilities.checkAccessRigths,
   utilities.handleErrors(invController.buildManagementView)
 );
 
 //Route to go to add-classification page
 router.get(
   "/addClassification",
+  utilities.checkAccessRigths,
   utilities.handleErrors(invController.buildAddClassView)
 );
 
@@ -39,6 +41,7 @@ router.post(
 //Route to go to add-inventory item page
 router.get(
   "/addInventory",
+  utilities.checkAccessRigths,
   utilities.handleErrors(invController.buildAddInvView)
 );
 
@@ -58,6 +61,7 @@ router.get(
 //Edit inventory view
 router.get(
   "/edit/:inv_id",
+  utilities.checkAccessRigths,
   utilities.handleErrors(invController.editInventoryView)
 );
 
@@ -72,6 +76,7 @@ router.post(
 //Delete inventory view
 router.get(
   "/delete/:inv_id",
+  utilities.checkAccessRigths,
   utilities.handleErrors(invController.deleteInventoryView)
 );
 

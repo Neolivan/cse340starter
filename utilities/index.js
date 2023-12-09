@@ -180,4 +180,23 @@ Util.checkJWTToken = (req, res, next) => {
   }
  }
 
+  /* ****************************************
+ *  Check Login
+ * ************************************ */
+  Util.checkAccessRigths = (req, res, next) => {
+    console.log(res.locals.loggedin)
+    if (res.locals.loggedin) {
+      const account = res.locals.accountData
+      if(account.account_type == 'Employee' || account.account_type == 'Admin' ){
+        next()
+      } else{
+       req.flash("notice", "You don't have the rigths to access this page")
+      return res.redirect("/account/")
+      }
+    } else {
+      req.flash("notice", "Please log in.")
+      return res.redirect("/account/login")
+    }
+   }
+
 module.exports = Util
