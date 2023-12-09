@@ -127,11 +127,21 @@ async function accountLogin(req, res) {
 async function buildAccountManagementView(req, res, next) {
   let nav = await utilities.getNav();
   const account = await utilities.getHeader(req,res)
+  const accountDetails = res.locals.accountData
+  let grid =""
+  grid += `<h2>Welcome ${accountDetails.account_firstname}</h2>`
+  if(accountDetails.account_type == 'Employee' || accountDetails.account_type == 'Admin' ){
+    grid += `<h3>Inventory Management</h3><p><a href="/inv/management" class="styled-button">Inventory Management</a></p>`
+  }
+    grid += `<a href='/account/update/${accountDetails.account_id}' class="styled-button">Update account information</a>`
+
+
   res.render("account/management", {
     title: "Account Management",
     nav,
     errors: null,
-    account
+    account,
+    grid
   });
 }
 
