@@ -8,3 +8,15 @@
         <a href="/inv/addClassification" class="styled-button">ADD NEW CLASSIFICATION</a>
         <a href="/inv/addInventory" class="styled-button">ADD NEW INVENTORY</a>
     </div>
+    <div class="manage-inv">
+      <h2>Manage Inventory</h2>
+      <label for="classification_id">
+        <h5>
+            Select a classification:
+        </h5>
+        <%- options %>
+    </label>
+    <table id="inventoryDisplay"></table>
+    <noscript>JavaScript must be enabled to use this page.</noscript>
+    </div>
+    <script src="../../js/inventory.js"></script>

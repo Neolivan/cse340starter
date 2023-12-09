@@ -272,6 +272,38 @@ select {
   padding-left: 5px;
 }
 
+.manage-inv{
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+}
+.manage-inv label h5{
+  margin: 0;
+}
+.manage-inv label select{
+  height: 25px;
+  font-size: 1rem;
+}
+#inventoryDisplay{
+  margin-top: 5%;
+  text-align: left;
+  width: 50%;
+  border-collapse: collapse;
+}
+
+#inventoryDisplay th{
+  font-size: 1.2rem;
+}
+
+#inventoryDisplay tr:nth-child(even){
+  background-color: #dddddd;
+}
+
+
+
+
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
 }
 

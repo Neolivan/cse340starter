@@ -74,6 +74,8 @@ validate.addIvnRules = () => {
 };
 
 
+
+
 /* ******************************
  * Check data and return errors or continue to registration
  * ***************************** */
@@ -130,6 +132,48 @@ validate.checkinvData = async (req, res, next) => {
   }
   next();
 };
+
+/* ******************************
+ * Check data and return errors or continue to registration
+ * ***************************** */
+validate.checkinvEditData = async (req, res, next) => {
+  const { inv_make,
+    inv_model,
+    inv_year,
+    inv_miles,
+    inv_color,
+    inv_description,
+    inv_price,
+    inv_image,
+    inv_thumbnail,
+    inv_id } = req.body;
+  let errors = [];
+  errors = validationResult(req);
+  const itemName = `${inv_make} ${inv_model}`
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    let grid = await utilities.getAddInvForm();
+    res.render("inventory/edit-inventory", {
+      errors,
+      title: "Edit " + itemName,
+      nav,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_miles,
+      inv_color,
+      inv_description,
+      inv_price,
+      inv_image,
+      inv_thumbnail,
+      inv_id,
+      grid
+    });
+    return;
+  }
+  next();
+};
+
 
 
 module.exports = validate;

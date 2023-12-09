@@ -50,6 +50,24 @@ router.post(
   utilities.handleErrors(invController.registerInv)
 );
 
+router.get(
+  "/getInventory/:classification_id",
+  utilities.handleErrors(invController.getInventoryJSON)
+);
+
+//Edit inventory view
+router.get(
+  "/edit/:inv_id",
+  utilities.handleErrors(invController.editInventoryView)
+);
+
+//Proccess the edit-Inventory attempt
+router.post(
+  "/update",
+  managementValidate.addIvnRules(),
+  managementValidate.checkinvEditData,
+  utilities.handleErrors(invController.updateInventory)
+);
 
 
 module.exports = router;
