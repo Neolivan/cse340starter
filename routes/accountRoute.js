@@ -3,7 +3,7 @@ const express = require("express")
 const utilities = require("../utilities")
 const regValidate = require('../utilities/account-validation')
 const router = new express.Router() 
-const {buildLogin, buildRegister,registerAccount, buildAccountManagementView, accountLogin, buildAccountUpdateView, updateInfo, updatePass, logoutProccess} = require("../controllers/acountController")
+const {buildLogin, buildRegister,registerAccount, buildAccountManagementView, accountLogin, buildAccountUpdateView, updateInfo, updatePass, logoutProccess, buildAccountUpdateAdminView, adminUpdateInfo, updateAdminPass, buildAccountDeleteAdminView, deleteAccount} = require("../controllers/acountController")
 // Route to build login view
 router.get("/login", utilities.handleErrors(buildLogin));
 // Route to build registration view
@@ -26,7 +26,7 @@ router.post(
   //success login page
   router.get("/", utilities.checkLogin,utilities.handleErrors(buildAccountManagementView));
   
-  //success login page
+  //update page
   router.get("/update/:account_id", utilities.checkLogin,utilities.handleErrors(buildAccountUpdateView));
   
   // Process the updateInfo attempt
@@ -36,7 +36,7 @@ router.post(
     regValidate.checkUpInfoData,
     utilities.handleErrors(updateInfo)
   )
-  // Process the updateInfo attempt
+  // Process the updatePass attempt
   router.post(
     "/updatePass",
     regValidate.updatePassRules(),
@@ -44,8 +44,37 @@ router.post(
     utilities.handleErrors(updatePass)
   )
 
+
   //success login page
   router.get("/logout", utilities.checkLogin,utilities.handleErrors(logoutProccess));
-  
+
+  //Admin update account page
+  router.get("/adminUpdate/:account_id", utilities.checkLogin,utilities.handleErrors(buildAccountUpdateAdminView));
+  //Admin delete account page
+  router.get("/adminDelete/:account_id", utilities.checkLogin,utilities.handleErrors(buildAccountDeleteAdminView));
+
+    // Process the admin update infos attempt
+  router.post(
+    "/adminUpdate",
+    regValidate.adminUpdateInfoRules(),
+    regValidate.checkUpAdmInfoData,
+    utilities.handleErrors(adminUpdateInfo)
+  )
+
+    // Process the updatePass attempt
+    router.post(
+      "/adminUpdatePass",
+      regValidate.updatePassRules(),
+      regValidate.checkUpAdminPassData,
+      utilities.handleErrors(updateAdminPass)
+    )
+
+    // Process the updatePass attempt
+    router.post(
+      "/adminDelete",
+      regValidate.updateInfoRules(),
+      regValidate.checkUpAdminDeleteData,
+      utilities.handleErrors(deleteAccount)
+    )
 
 module.exports = router;

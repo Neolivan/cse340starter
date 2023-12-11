@@ -286,18 +286,18 @@ select {
   height: 25px;
   font-size: 1rem;
 }
-#inventoryDisplay{
+.tableStyle{
   margin-top: 5%;
   text-align: left;
   width: 50%;
   border-collapse: collapse;
 }
 
-#inventoryDisplay th{
+.tableStyle th{
   font-size: 1.2rem;
 }
 
-#inventoryDisplay tr:nth-child(even){
+.tableStyle tr:nth-child(even){
   background-color: #dddddd;
 }
 

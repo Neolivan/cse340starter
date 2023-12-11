@@ -137,13 +137,17 @@ async function buildAccountManagementView(req, res, next) {
   const accountDetails = res.locals.accountData;
   let grid = "";
   grid += `<h2>Welcome ${accountDetails.account_firstname}</h2>`;
+  grid += `<a href='/account/update/${accountDetails.account_id}' class="styled-button">Update account information</a>`;
   if (
     accountDetails.account_type == "Employee" ||
     accountDetails.account_type == "Admin"
   ) {
     grid += `<h3>Inventory Management</h3><p><a href="/inv/management" class="styled-button">Inventory Management</a></p>`;
+    if(accountDetails.account_type == "Admin"){
+      grid += await utilities.buildAccountsTableGrid()
+    }
   }
-  grid += `<a href='/account/update/${accountDetails.account_id}' class="styled-button">Update account information</a>`;
+  
 
   res.render("account/management", {
     title: "Account Management",
@@ -171,6 +175,54 @@ async function buildAccountUpdateView(req, res, next) {
     account_lastname: accountDetails.account_lastname,
     account_email: accountDetails.account_email,
     account_id: accountDetails.account_id,
+  });
+}
+
+/* ****************************************
+ *  Deliver Admin Update view
+ * *************************************** */
+async function buildAccountUpdateAdminView(req, res, next) {
+  let nav = await utilities.getNav();
+  const account = await utilities.getHeader(req, res);
+  const  account_id  =  parseInt(req.params.account_id)
+  const accountDetails = await accountModel.getAccountById(account_id);
+
+  console.log(accountDetails)
+
+  res.render("account/adminUpdate", {
+    title: "Account Update",
+    nav,
+    errors: null,
+    account,
+    account_firstname: accountDetails.account_firstname,
+    account_lastname: accountDetails.account_lastname,
+    account_email: accountDetails.account_email,
+    account_id: accountDetails.account_id,
+    account_type: accountDetails.account_type,
+  });
+}
+
+/* ****************************************
+ *  Deliver Admin Delete view
+ * *************************************** */
+async function buildAccountDeleteAdminView(req, res, next) {
+  let nav = await utilities.getNav();
+  const account = await utilities.getHeader(req, res);
+  const  account_id  =  parseInt(req.params.account_id)
+  const accountDetails = await accountModel.getAccountById(account_id);
+
+  console.log(accountDetails)
+
+  res.render("account/adminDelete", {
+    title: "Account Delete Confirmation",
+    nav,
+    errors: null,
+    account,
+    account_firstname: accountDetails.account_firstname,
+    account_lastname: accountDetails.account_lastname,
+    account_email: accountDetails.account_email,
+    account_id: accountDetails.account_id,
+    account_type: accountDetails.account_type,
   });
 }
 
@@ -210,6 +262,74 @@ async function updateInfo(req, res) {
   }
 }
 
+
+/* ****************************************
+ *  Process update Info requested by Admin
+ * ************************************ */
+async function adminUpdateInfo(req, res) {
+  let nav = await utilities.getNav();
+  const account = await utilities.getHeader(req, res);
+  const { account_email, account_firstname, account_lastname, account_id,account_type } =
+    req.body;
+
+  const updateResult = await accountModel.adminUpdateInfo(
+    account_email,
+    account_firstname,
+    account_lastname,
+    account_id,
+    account_type
+  );
+
+  if (updateResult) {
+    req.flash("notice", `The ${updateResult.account_firstname} was successfully updated.`);
+    res.redirect("/account/");
+  } else {
+    req.flash("notice", "Sorry, the update failed.");
+    res.status(501).render("account/adminUpdate", {
+      title: "Account Update",
+      nav,
+      account,
+      errors: null,
+      account_email,
+    account_firstname,
+    account_lastname,
+    account_id,
+    account_type
+    });
+  }
+}
+/* ****************************************
+ *  Process delete account requested by Admin
+ * ************************************ */
+async function deleteAccount(req, res) {
+  let nav = await utilities.getNav();
+  const account = await utilities.getHeader(req, res);
+  const { account_email, account_firstname, account_lastname, account_id,account_type } =
+    req.body;
+
+  const updateResult = await accountModel.deleteAccount(
+    account_id,
+  );
+
+  if (updateResult) {
+    req.flash("notice", `The ${account_firstname} was successfully deleted.`);
+    res.redirect("/account/");
+  } else {
+    req.flash("notice", "Sorry, the update failed.");
+    res.status(501).render("account/adminDelete", {
+      title: "Account Update",
+      nav,
+      account,
+      errors: null,
+      account_email,
+    account_firstname,
+    account_lastname,
+    account_id,
+    account_type
+    });
+  }
+}
+
 /* ****************************************
  *  Process update password request
  * ************************************ */
@@ -242,6 +362,38 @@ async function updatePass(req, res) {
 }
 
 /* ****************************************
+ *  Process update password request by admin
+ * ************************************ */
+async function updateAdminPass(req, res) {
+  let nav = await utilities.getNav();
+  const account = await utilities.getHeader(req, res);
+  const { account_password, account_id } =
+    req.body;
+    hashedPassword = await bcrypt.hashSync(account_password, 10);
+  const updateResult = await accountModel.updatePass(
+    hashedPassword,
+    account_id
+  );
+
+  if (updateResult) {
+    req.flash("notice", `The Password of ${updateResult.account_firstname} was successfully updated.`);
+    res.redirect("/account/");
+  } else {
+    req.flash("notice", "Sorry, the update failed.");
+    res.status(501).render("account/adminUpdate", {
+      title: "Account Update",
+      nav,
+      account,
+      errors: null,
+    account_id
+    });
+  }
+}
+
+
+
+
+/* ****************************************
  *  Deliver Logout proccess
  * *************************************** */
 async function logoutProccess(req, res, next) {
@@ -249,7 +401,6 @@ async function logoutProccess(req, res, next) {
   res.clearCookie("jwt")
   res.clearCookie("account_name")
   res.clearCookie("session_id")
-  const account = await utilities.getHeader(req, res);
   res.redirect("/");
 }
 
@@ -262,5 +413,10 @@ module.exports = {
   buildAccountUpdateView,
   updateInfo,
   updatePass,
-  logoutProccess
+  logoutProccess,
+  buildAccountUpdateAdminView,
+  adminUpdateInfo,
+  updateAdminPass,
+  buildAccountDeleteAdminView,
+  deleteAccount
 };

@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model")
+const accountModel = require("../models/account-model")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 const Util = {}
@@ -198,5 +199,36 @@ Util.checkJWTToken = (req, res, next) => {
       return res.redirect("/account/login")
     }
    }
+
+
+    /* **************************************
+* Build the accounts table for Admins HTML
+* ************************************ */
+Util.buildAccountsTableGrid = async function(){
+  let data = await accountModel.getAllAccounts()
+  if(Array.isArray(data)){
+    if(data.length > 0){
+
+      // Set up the table labels 
+      let dataTable = `<table class='tableStyle'><thead>`; 
+      dataTable += '<tr><th>User Name</th><td>&nbsp;</td><td>&nbsp;</td></tr>'; 
+      dataTable += '</thead>'; 
+      // Set up the table body 
+      dataTable += '<tbody>'; 
+      // Iterate over all vehicles in the array and put each in a row 
+      data.forEach(function (element) { 
+        dataTable += `<tr><td>${element.account_firstname} ${element.account_lastname}</td>`; 
+        dataTable += `<td><a href='/account/adminUpdate/${element.account_id}' title='Click to update'>Modify</a></td>`; 
+        dataTable += `<td><a href='/account/adminDelete/${element.account_id}' title='Click to delete'>Delete</a></td></tr>`; 
+      }) 
+      dataTable += '</tbody></table>'; 
+      return dataTable
+    }else {
+      return ""
+    }
+  }else{
+    return ""
+  }
+}
 
 module.exports = Util
